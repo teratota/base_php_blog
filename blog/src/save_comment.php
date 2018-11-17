@@ -8,7 +8,9 @@ nav_bar();
 $id_article=(Int)$_POST['id_article'];
 $username=(String)$_POST['utilisateur'];
 $content=(String)$_POST['commentaire'];
-save_comment($id_article,$username,$content);
+if(is_int($id_article)){
+    save_comment($id_article,$username,$content);
+}
 ?>
 <div>
 <?php

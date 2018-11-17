@@ -261,15 +261,15 @@ function comment($id_article)
         $number=count($data);
         $i=0;
         while($i<$number){
-            echo "Nom utilisateur: ".$data[$i]['username']." ";
-            echo "Commentaire: ".$data[$i]['content'];
+            echo "<article>Nom utilisateur: ".$data[$i]['username']." ";
+            echo "Commentaire: ".$data[$i]['content']."</article>";
             echo "<br>";
             $i++;
         }
         echo "<center><div class='form'>
         <h1> Ajouter un commentaire </h1>
         <form method='post' action='save_comment.php'>
-        <label>nom </label>
+        <label>nom</label>
         <br>
         <input type='text' name='utilisateur' required>
         <br>
@@ -380,13 +380,16 @@ function save_article($title,$description,$file)
 {
     $data_base=connection();
     $name = "../image/".$file["name"];
+   // $extension=substr($file["name"],-4);
     $result = move_uploaded_file($file['tmp_name'],$name);
+   // $file_new_name=crypt($file["name"]).$extension;
     if ($result) echo "Transfert réussi";
+   // rename("../image/".$file["name"], "../image/".$file_new_name);
     try {
         $insert=$data_base->prepare('INSERT INTO article (title,content,image,author) VALUE (:title,:content,:image,:author)');
             $insert->bindParam(':title',$title);
             $insert->bindParam(':content',$description);
-            $insert->bindParam(':image',$name);
+            $insert->bindParam(':image',$file_new_name);
             $insert->bindParam(':author',$_SESSION['id_user']);
             $insert->execute();
             header("Location: admin.php");
