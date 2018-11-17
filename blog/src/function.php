@@ -51,7 +51,7 @@ function connection()
     $user='user';
     $pass="user";
     try {
-        $data_base = new PDO('mysql:host=db;dbname=blog', $user, $pass);
+        $data_base = new PDO('mysql:host=localhost;dbname=blog', $user, $pass);
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
